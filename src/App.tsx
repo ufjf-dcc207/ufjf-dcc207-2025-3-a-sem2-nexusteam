@@ -1,30 +1,24 @@
 import "./estilos/App.css";
+import { useState } from "react";
 import Personagem from "./Personagem";
 import InterfaceExibicao from "./InterfaceExibicao";
-import { ListaProcurados, type InfoUsuario } from "./ProcessadorListas";
-import { filtrarPersonagem } from "./utilitarios/utils";
-import { useState } from "react";
+import Ficha from "./Ficha";
 import Login from "./Login";
 import { Cabecalho } from "./Cabecalho";
 import FormularioNovoCriminoso from "./FormularioNovoCriminoso";
-import type { Procurado } from "./ProcessadorListas";
 import RemoverCriminosoDoSistema from "./RemoverCriminosoDoSistema";
-import Ficha from "./Ficha";
+import { ListaProcurados, type InfoUsuario, type Procurado } from "./ProcessadorListas";
+import { useFiltroProcurados } from "./hooks/app/useFiltroProcurados";
 
 function App() {
 
-  const[atributosPersonagem, setAtributosPersonagem] = useState({
-    nome: "",
-    status: "",
-    estrela: 0
-  });
   const [login, setLogin] = useState({teveLogin: false, nivelAcesso: "", userInfo: null as InfoUsuario | null, mostraLogin: false}); 
   const [listaAtualizada, setListaAtualizada] = useState(ListaProcurados);
   const [mostrarFormAddCriminoso, setMostrarFormAddCriminoso] = useState(false); 
   const [mostrarRemocaoCriminoso, setMostrarRemocaoCriminoso] = useState(false);
   const [personagemSelecionadoFicha, setPersonagemSelecionadoFicha] = useState<Procurado | null>(null);
+  const { filtros, setFiltros, listaFiltrada } = useFiltroProcurados(listaAtualizada);
   
-  let ListaProcuradosFiltrado = filtrarPersonagem(listaAtualizada, atributosPersonagem.nome, atributosPersonagem.status, atributosPersonagem.estrela);
 
   const clickOn = () => {
     setMostrarFormAddCriminoso(true);
@@ -154,13 +148,13 @@ function App() {
                       type="text"
                       className="campo-texto"
                       placeholder="Buscar por nome..."
-                      value={atributosPersonagem.nome}
-                      onChange={(texto) => setAtributosPersonagem({...atributosPersonagem, nome: texto.target.value})}
+                      value={filtros.nome}
+                      onChange={(texto) => setFiltros({...filtros, nome: texto.target.value})}
                     />
                      <select 
                         className="campo-select divisa-esquerda" 
-                        value={atributosPersonagem.estrela} 
-                        onChange={(estrela) => setAtributosPersonagem({...atributosPersonagem, estrela: Number(estrela.target.value)})}
+                        value={filtros.estrela} 
+                        onChange={(estrela) => setFiltros({...filtros, estrela: Number(estrela.target.value)})}
                     >
                         <option value={0}>🌟</option>
                         <option value={1}>⭐</option>
@@ -172,8 +166,8 @@ function App() {
 
                     <select 
                         className="campo-select divisa-esquerda" 
-                        value={atributosPersonagem.status} 
-                        onChange={(status) => setAtributosPersonagem({...atributosPersonagem, status: status.target.value})}
+                        value={filtros.status} 
+                        onChange={(status) => setFiltros({...filtros, status: status.target.value})}
                     >
                         <option value="">Todos</option>
                         <option value="Foragido">Foragido</option>
@@ -185,7 +179,7 @@ function App() {
                 </div>
               </div>
               <InterfaceExibicao>
-                {ListaProcuradosFiltrado.map((personagem) => (
+                {listaFiltrada.map((personagem) => (
                   <div className="card" key={personagem.id}>
                     <Personagem
                       nome={personagem.Nome}

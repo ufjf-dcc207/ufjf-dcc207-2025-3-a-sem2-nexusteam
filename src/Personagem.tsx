@@ -4,9 +4,7 @@ import {useState} from 'react';
 
 import {situacaoStatus, statusValido, idadeValida, nivelPerigoValido, trataRecompensa, 
     formataIdade, checaDataNascimento, trataData, formataPalavra, mudarEstiloImgPorStatus,
-    novoStatusAtual,
-    calculaRecompensaAtual,
-    retornaRenderEstrelas} from './utilitarios/utils';
+    novoStatusAtual, calculaRecompensaAtual, retornaRenderEstrelas} from './utilitarios/utils';
 
 type PersonagemProps = {
     nome: string;
