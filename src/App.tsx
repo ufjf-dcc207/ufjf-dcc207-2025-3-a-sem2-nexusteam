@@ -9,10 +9,12 @@ import FormularioNovoCriminoso from "./FormularioNovoCriminoso";
 import RemoverCriminosoDoSistema from "./RemoverCriminosoDoSistema";
 import { ListaProcurados, type InfoUsuario, type Procurado } from "./ProcessadorListas";
 import { useFiltroProcurados } from "./hooks/app/useFiltroProcurados";
+import { useLogin } from "./hooks/app/useLogin";
+
 
 function App() {
 
-  const [login, setLogin] = useState({teveLogin: false, nivelAcesso: "", userInfo: null as InfoUsuario | null, mostraLogin: false}); 
+  const { login, processarLogin, processarLogout, alternarVisualizacaoLogin } = useLogin();
   const [listaAtualizada, setListaAtualizada] = useState(ListaProcurados);
   const [mostrarFormAddCriminoso, setMostrarFormAddCriminoso] = useState(false); 
   const [mostrarRemocaoCriminoso, setMostrarRemocaoCriminoso] = useState(false);
@@ -50,23 +52,23 @@ function App() {
   const deveMostrarFormularioAdicao = login.teveLogin && mostrarFormAddCriminoso;
   const deveMostrarRemocao = login.teveLogin && mostrarRemocaoCriminoso;
   
-  const processarLogin = (user: InfoUsuario) => {
-    setLogin(prevLogin => ({ ...prevLogin, userInfo: user, teveLogin: true, mostraLogin: false }));
+  const LoginCompleto = (user: InfoUsuario) => {
+    processarLogin(user);
     setMostrarFormAddCriminoso(false);
     setMostrarRemocaoCriminoso(false);
   };
 
-  const processarLogout = () => {
-    setLogin(prevLogin => ({ ...prevLogin, userInfo: null, teveLogin: false, mostraLogin: false }));
+  const LogoutCompleto = () => {
+    processarLogout();
     setMostrarFormAddCriminoso(false);
     setMostrarRemocaoCriminoso(false);
   };
   
-  const alternarVisualizacaoLogin = () => {
+  const alternarLogin = () => {
     if (login.teveLogin) {
-        processarLogout(); 
+        LogoutCompleto(); 
     } else {
-        setLogin(prevLogin => ({ ...prevLogin, mostraLogin: !prevLogin.mostraLogin }));
+        alternarVisualizacaoLogin();
     }
   };
 
@@ -89,14 +91,14 @@ function App() {
         TemLogin={login.teveLogin}
         nivelAcesso={login.userInfo?.nivelAcesso}
         usuario={login.userInfo}
-        onClickLogin={alternarVisualizacaoLogin}
+        onClickLogin={alternarLogin}
         clickOn={clickOn}
         onClickRemover={clickRemover}
         onClickVisualizar={voltarPrincipal}
       />
       
       {login.mostraLogin && !login.teveLogin? (
-          <Login TemLogin={processarLogin} />
+          <Login TemLogin={LoginCompleto} />
       )
       :deveMostrarFormularioAdicao ? (
             <InterfaceExibicao>
