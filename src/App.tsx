@@ -1,5 +1,4 @@
 import "./estilos/App.css";
-import { useState } from "react";
 import Personagem from "./Personagem";
 import InterfaceExibicao from "./InterfaceExibicao";
 import Ficha from "./Ficha";
@@ -8,11 +7,11 @@ import { Filtro } from "./Filtro";
 import { Cabecalho } from "./Cabecalho";
 import FormularioNovoCriminoso from "./FormularioNovoCriminoso";
 import RemoverCriminosoDoSistema from "./RemoverCriminosoDoSistema";
-import { type Procurado } from "./ProcessadorListas";
 import { useFiltroProcurados } from "./hooks/app/useFiltroProcurados";
 import { useLogin } from "./hooks/app/useLogin";
 import { useGerenciadorProcurados } from "./hooks/app/useGerenciadorProcurados";
 import { useNavegacao } from "./hooks/app/useNavegacao";
+import { useFicha } from "./hooks/app/useFicha";
 
 
 function App() {
@@ -20,26 +19,12 @@ function App() {
   const { login, LoginCompleto, alternarLogin } = useLogin();
   const { listaAtualizada, submeterNovoCriminoso, cancelarNovoCriminoso, removerCriminoso } = useGerenciadorProcurados();
   const { mostrarFormAddCriminoso, mostrarRemocaoCriminoso, clickOn, clickRemover, voltarPrincipal } = useNavegacao();
-
-  const [personagemSelecionadoFicha, setPersonagemSelecionadoFicha] = useState<Procurado | null>(null);
+  const { personagemSelecionadoFicha, clickVerFicha, clickVoltar, clickPegarRecompensa } = useFicha();
   const { filtros, setFiltros, listaFiltrada } = useFiltroProcurados(listaAtualizada);
 
   const deveMostrarFormularioAdicao = login.teveLogin && mostrarFormAddCriminoso;
   const deveMostrarRemocao = login.teveLogin && mostrarRemocaoCriminoso;
 
-
-  const clickVerFicha = (personagem: Procurado) => {
-    setPersonagemSelecionadoFicha(personagem);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const clickVoltar = () => {
-    setPersonagemSelecionadoFicha(null);
-  };
-
-  const clickPegarRecompensa = () => {
-    alert("Recompensa Pega!");
-  };
 
 
   const renderizarConteudo = () => {
