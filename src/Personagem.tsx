@@ -1,10 +1,12 @@
 export type Status = "Foragido" | "Morto" | "Capturado" | "Desconhecido";
 import './estilos/Personagem.css';
-import {useState} from 'react';
+import { useState } from 'react';
 
-import {situacaoStatus, statusValido, idadeValida, nivelPerigoValido, trataRecompensa, 
+import {
+    situacaoStatus, statusValido, idadeValida, nivelPerigoValido, trataRecompensa,
     formataIdade, checaDataNascimento, trataData, formataPalavra, mudarEstiloImgPorStatus,
-    novoStatusAtual, calculaRecompensaAtual, retornaRenderEstrelas} from './utilitarios/utils';
+    novoStatusAtual, calculaRecompensaAtual, retornaRenderEstrelas
+} from './utilitarios/utils';
 
 type PersonagemProps = {
     nome: string;
@@ -25,7 +27,8 @@ type PersonagemProps = {
     tipoAcesso: string;
 }
 
-export default function Personagem({nome, subnome, imagem, nivelPerigo, status, idade, dataNascimento, recompensa, peso, altura, descricao, crimes, ultimaLocalizacao, onVerFicha, TemLogin, tipoAcesso}: PersonagemProps) {
+export default function Personagem({ nome, subnome, imagem, nivelPerigo, status, idade, dataNascimento,
+    recompensa, peso, altura, descricao, crimes, ultimaLocalizacao, onVerFicha, TemLogin, tipoAcesso }: PersonagemProps) {
     let desconhecidoData: string = "";
     let dataFormatada: string;
     let desconhecidoIdade: string = "";
@@ -36,12 +39,12 @@ export default function Personagem({nome, subnome, imagem, nivelPerigo, status, 
     situacao = situacaoStatus(status);
     nivelPerigo = nivelPerigoValido(nivelPerigo);
     desconhecidoData = checaDataNascimento(dataNascimento);
-    dataFormatada = trataData(dataNascimento);   
+    dataFormatada = trataData(dataNascimento);
     idade = idadeValida(idade);
     desconhecidoIdade = formataIdade(idade);
     recompensaValida = trataRecompensa(recompensa, situacao);
 
-    const[atributos, setAtributos] =  useState({
+    const [atributos, setAtributos] = useState({
         estrela: retornaRenderEstrelas(nivelPerigo),
         status: situacao,
         recompensa: recompensaValida
@@ -51,7 +54,7 @@ export default function Personagem({nome, subnome, imagem, nivelPerigo, status, 
     const onMudarStatus = () => {
         let novoStatus: Status;
         novoStatus = novoStatusAtual(atributos.status);
-        setAtributos({...atributos, status: situacaoStatus(novoStatus)})
+        setAtributos({ ...atributos, status: situacaoStatus(novoStatus) })
     };
 
     const onVoltarStatus = () => {
@@ -65,7 +68,7 @@ export default function Personagem({nome, subnome, imagem, nivelPerigo, status, 
         } else {
             novoStatus = 'Desconhecido';
         }
-        setAtributos({...atributos, status: situacaoStatus(novoStatus)})
+        setAtributos({ ...atributos, status: situacaoStatus(novoStatus) })
     };
 
     const recalcularRecompensa = (nivel: number) => {
@@ -98,7 +101,7 @@ export default function Personagem({nome, subnome, imagem, nivelPerigo, status, 
         }
     };
 
-    return(
+    return (
         <div className={`personagem ${atributos.status === 'morto' ? 'morto' : ''} ${atributos.status === 'capturado' ? 'capturado' : ''}`}>
             <div className="nome"><h2>{nome}</h2></div>
             <div className='subnome'><h3>{subnome}</h3></div>
@@ -106,14 +109,14 @@ export default function Personagem({nome, subnome, imagem, nivelPerigo, status, 
             </div>
             <div className="nivel-perigo"><p>Nível de Perigo: </p></div>
             <div className='estrela'>
-                {TemLogin && (tipoAcesso === 'administrador' || tipoAcesso === 'agente') ? <button className='botao-remove'> <img src="Icones/SetaEsq.png" alt="remover" onClick={onRemoverEstrela} /></button>: null}
+                {TemLogin && (tipoAcesso === 'administrador' || tipoAcesso === 'agente') ? <button className='botao-remove'> <img src="Icones/SetaEsq.png" alt="remover" onClick={onRemoverEstrela} /></button> : null}
                 <p>{atributos.estrela}</p>
-                {TemLogin&&(tipoAcesso === 'administrador'|| tipoAcesso === 'agente') ?<button className='botao-add'> <img src="Icones/SetaDir.png" alt="adicionar" onClick={onAdicionarEstrela} /></button> : null}
+                {TemLogin && (tipoAcesso === 'administrador' || tipoAcesso === 'agente') ? <button className='botao-add'> <img src="Icones/SetaDir.png" alt="adicionar" onClick={onAdicionarEstrela} /></button> : null}
             </div>
-            <div className="status"> 
-                {TemLogin &&(tipoAcesso === 'administrador'|| tipoAcesso === 'agente') ? <button className='botao-voltar' ><img src="Icones/SetaEsq.png" alt="voltar" onClick={onVoltarStatus} /></button>: null}
+            <div className="status">
+                {TemLogin && (tipoAcesso === 'administrador' || tipoAcesso === 'agente') ? <button className='botao-voltar' ><img src="Icones/SetaEsq.png" alt="voltar" onClick={onVoltarStatus} /></button> : null}
                 <p>Status: <span className={atributos.status}>{formataPalavra(atributos.status)}</span></p>
-                {TemLogin &&(tipoAcesso === 'administrador'|| tipoAcesso === 'agente') ? <button className='botao-avancar'><img src="Icones/SetaDir.png" alt="avancar" onClick={onMudarStatus} /></button>: null}      
+                {TemLogin && (tipoAcesso === 'administrador' || tipoAcesso === 'agente') ? <button className='botao-avancar'><img src="Icones/SetaDir.png" alt="avancar" onClick={onMudarStatus} /></button> : null}
             </div>
             <div className="idade"><p>Idade: <span className={desconhecidoIdade}>{idade}</span></p></div>
             <div className="data-nascimento"><p>Nascimento: <span className={desconhecidoData}>{dataFormatada}</span></p></div>
@@ -125,7 +128,7 @@ export default function Personagem({nome, subnome, imagem, nivelPerigo, status, 
             {peso ? <div className="peso"><p>Peso: {peso}</p></div> : null}
             {altura ? <div className="altura"><p>Altura: {altura}</p></div> : null}
             {descricao ? <div className="descricao"><p>{descricao}</p></div> : null}
-            {crimes && crimes.length > 0 ? <div className="crimes"><p><strong>Crimes:</strong> {crimes.slice(0,5).join(', ')}{crimes.length>5? '...' : ''}</p></div> : null}
+            {crimes && crimes.length > 0 ? <div className="crimes"><p><strong>Crimes:</strong> {crimes.slice(0, 5).join(', ')}{crimes.length > 5 ? '...' : ''}</p></div> : null}
             {ultimaLocalizacao ? <div className="ultima-localizacao"><p>Última Localização: {ultimaLocalizacao}</p></div> : null}
             <button className="botao-ficha" onClick={onVerFicha}>Ver Ficha</button>
         </div>

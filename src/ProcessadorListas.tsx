@@ -1,6 +1,7 @@
-import type{ Status } from "./Personagem";
+import type { Status } from "./Personagem";
 import procurados from "./dados/procurados.json";
 import usuarios from "./dados/bancoLogin.json";
+
 export type Procurado = {
     id: number;
     Nome: string;
@@ -27,4 +28,4 @@ export type InfoUsuario = {
 };
 
 export const ListaProcurados = procurados as Procurado[];
-export const Usuario : InfoUsuario[] = usuarios as InfoUsuario[];
+export const Usuario: InfoUsuario[] = usuarios as InfoUsuario[];
