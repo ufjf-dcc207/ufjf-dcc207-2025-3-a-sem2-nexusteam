@@ -4,6 +4,7 @@ import type { InfoUsuario } from "../../ProcessadorListas";
 
 export function useLogin() {
     const [login, setLogin] = useState({teveLogin: false, nivelAcesso: "", userInfo: null as InfoUsuario | null, mostraLogin: false});
+    
     const processarLogin = (user: InfoUsuario) => {
     setLogin(prevLogin => ({ ...prevLogin, userInfo: user, teveLogin: true, mostraLogin: false }));
   };

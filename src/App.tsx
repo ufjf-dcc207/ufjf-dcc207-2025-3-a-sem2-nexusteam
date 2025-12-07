@@ -7,15 +7,17 @@ import Login from "./Login";
 import { Cabecalho } from "./Cabecalho";
 import FormularioNovoCriminoso from "./FormularioNovoCriminoso";
 import RemoverCriminosoDoSistema from "./RemoverCriminosoDoSistema";
-import { ListaProcurados, type InfoUsuario, type Procurado } from "./ProcessadorListas";
+import { type InfoUsuario, type Procurado } from "./ProcessadorListas";
 import { useFiltroProcurados } from "./hooks/app/useFiltroProcurados";
 import { useLogin } from "./hooks/app/useLogin";
+import { useGerenciadorProcurados } from "./hooks/app/useGerenciadorProcurados";
 
 
 function App() {
 
   const { login, processarLogin, processarLogout, alternarVisualizacaoLogin } = useLogin();
-  const [listaAtualizada, setListaAtualizada] = useState(ListaProcurados);
+  const { listaAtualizada, adicionarProcurado, removerProcurado } = useGerenciadorProcurados();
+  
   const [mostrarFormAddCriminoso, setMostrarFormAddCriminoso] = useState(false); 
   const [mostrarRemocaoCriminoso, setMostrarRemocaoCriminoso] = useState(false);
   const [personagemSelecionadoFicha, setPersonagemSelecionadoFicha] = useState<Procurado | null>(null);
@@ -37,7 +39,7 @@ function App() {
   };
 
   const submeterNovoCriminoso = (novo: Procurado) => {
-    setListaAtualizada(prevLista => [novo, ...prevLista]);
+    adicionarProcurado(novo);
     setMostrarFormAddCriminoso(false);
   };
 
@@ -46,7 +48,7 @@ function App() {
   };
 
   const removerCriminoso = (id: number) => {
-    setListaAtualizada(prevLista => prevLista.filter(p => p.id !== id));
+    removerProcurado(id);
   };
 
   const deveMostrarFormularioAdicao = login.teveLogin && mostrarFormAddCriminoso;
