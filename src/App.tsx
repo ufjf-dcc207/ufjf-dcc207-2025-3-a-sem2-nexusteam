@@ -4,76 +4,29 @@ import Personagem from "./Personagem";
 import InterfaceExibicao from "./InterfaceExibicao";
 import Ficha from "./Ficha";
 import Login from "./Login";
+import { Filtro } from "./Filtro";
 import { Cabecalho } from "./Cabecalho";
 import FormularioNovoCriminoso from "./FormularioNovoCriminoso";
 import RemoverCriminosoDoSistema from "./RemoverCriminosoDoSistema";
-import { type InfoUsuario, type Procurado } from "./ProcessadorListas";
+import { type Procurado } from "./ProcessadorListas";
 import { useFiltroProcurados } from "./hooks/app/useFiltroProcurados";
 import { useLogin } from "./hooks/app/useLogin";
 import { useGerenciadorProcurados } from "./hooks/app/useGerenciadorProcurados";
-import { Filtro } from "./Filtro";
+import { useNavegacao } from "./hooks/app/useNavegacao";
 
 
 function App() {
 
-  const { login, processarLogin, processarLogout, alternarVisualizacaoLogin } = useLogin();
-  const { listaAtualizada, adicionarProcurado, removerProcurado } = useGerenciadorProcurados();
-  
-  const [mostrarFormAddCriminoso, setMostrarFormAddCriminoso] = useState(false); 
-  const [mostrarRemocaoCriminoso, setMostrarRemocaoCriminoso] = useState(false);
+  const { login, LoginCompleto, alternarLogin } = useLogin();
+  const { listaAtualizada, submeterNovoCriminoso, cancelarNovoCriminoso, removerCriminoso } = useGerenciadorProcurados();
+  const { mostrarFormAddCriminoso, mostrarRemocaoCriminoso, clickOn, clickRemover, voltarPrincipal } = useNavegacao();
+
   const [personagemSelecionadoFicha, setPersonagemSelecionadoFicha] = useState<Procurado | null>(null);
   const { filtros, setFiltros, listaFiltrada } = useFiltroProcurados(listaAtualizada);
-  
-
-  const clickOn = () => {
-    setMostrarFormAddCriminoso(true);
-    setMostrarRemocaoCriminoso(false);
-  };
-
-  const clickRemover = () => {
-    setMostrarRemocaoCriminoso(true);
-    setMostrarFormAddCriminoso(false);
-  };
-
-  const voltarPrincipal = () => {
-    setMostrarRemocaoCriminoso(false);
-  };
-
-  const submeterNovoCriminoso = (novo: Procurado) => {
-    adicionarProcurado(novo);
-    setMostrarFormAddCriminoso(false);
-  };
-
-  const cancelarNovoCriminoso = () => {
-    setMostrarFormAddCriminoso(false);
-  };
-
-  const removerCriminoso = (id: number) => {
-    removerProcurado(id);
-  };
 
   const deveMostrarFormularioAdicao = login.teveLogin && mostrarFormAddCriminoso;
   const deveMostrarRemocao = login.teveLogin && mostrarRemocaoCriminoso;
-  
-  const LoginCompleto = (user: InfoUsuario) => {
-    processarLogin(user);
-    setMostrarFormAddCriminoso(false);
-    setMostrarRemocaoCriminoso(false);
-  };
 
-  const LogoutCompleto = () => {
-    processarLogout();
-    setMostrarFormAddCriminoso(false);
-    setMostrarRemocaoCriminoso(false);
-  };
-  
-  const alternarLogin = () => {
-    if (login.teveLogin) {
-        LogoutCompleto(); 
-    } else {
-        alternarVisualizacaoLogin();
-    }
-  };
 
   const clickVerFicha = (personagem: Procurado) => {
     setPersonagemSelecionadoFicha(personagem);
@@ -89,8 +42,6 @@ function App() {
   };
 
 
-
-
   const renderizarConteudo = () => {
     if (login.mostraLogin && !login.teveLogin) {
       return <Login TemLogin={LoginCompleto} />;
@@ -99,9 +50,9 @@ function App() {
     if (deveMostrarFormularioAdicao) {
       return (
         <InterfaceExibicao>
-          <FormularioNovoCriminoso 
-            submeter={submeterNovoCriminoso} 
-            cancelaSubmeter={cancelarNovoCriminoso} 
+          <FormularioNovoCriminoso
+            submeter={submeterNovoCriminoso}
+            cancelaSubmeter={cancelarNovoCriminoso}
             ultimoId={listaAtualizada.length ? Math.max(...listaAtualizada.map(p => p.id)) : 0}
           />
         </InterfaceExibicao>
@@ -111,7 +62,7 @@ function App() {
     if (deveMostrarRemocao) {
       return (
         <InterfaceExibicao>
-          <RemoverCriminosoDoSistema 
+          <RemoverCriminosoDoSistema
             lista={listaAtualizada}
             onRemover={removerCriminoso}
             voltarPrincipal={voltarPrincipal}
@@ -175,7 +126,7 @@ function App() {
 
   return (
     <div className="App">
-      <Cabecalho 
+      <Cabecalho
         TemLogin={login.teveLogin}
         nivelAcesso={login.userInfo?.nivelAcesso}
         usuario={login.userInfo}
