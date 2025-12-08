@@ -9,7 +9,7 @@ interface RemoverCriminosoDoSistemaProps {
     voltarPrincipal: () => void;
 }
 
-export default function RemoverCriminosoDoSistema({ lista, onRemover, voltarPrincipal }: RemoverCriminosoDoSistemaProps){
+export default function RemoverCriminosoDoSistema({ lista, onRemover, voltarPrincipal }: RemoverCriminosoDoSistemaProps) {
     return (
         <div className="remover-criminoso">
             <h2 className="titulo-remocao">Remover Criminoso do Sistema</h2>
@@ -17,7 +17,7 @@ export default function RemoverCriminosoDoSistema({ lista, onRemover, voltarPrin
                 {lista.length ? lista.map(personagem => (
                     <li key={personagem.id} className="item-remocao">
                         <span className="item-info">
-                            <strong>{personagem.Nome}</strong> {personagem.Subnome ? `(${personagem.Subnome})` : ""} • ⭐{personagem.NivelPerigo} 
+                            <strong>{personagem.Nome}</strong> {personagem.Subnome ? `(${personagem.Subnome})` : ""} • ⭐{personagem.NivelPerigo}
                             <img className="item-avatar" src={personagem.Imagem} alt={personagem.Nome} />
                         </span>
                         <button

@@ -1,8 +1,9 @@
 import "./estilos/Ficha.css";
-import type{ Status } from "./Personagem";
-
-import {situacaoStatus, statusValido, idadeValida, nivelPerigoValido, trataRecompensa, 
-    formataIdade, checaDataNascimento, trataData} from './utilitarios/utils';
+import type { Status } from "./Personagem";
+import {
+    situacaoStatus, statusValido, idadeValida, nivelPerigoValido, trataRecompensa,
+    formataIdade, checaDataNascimento, trataData
+} from './utilitarios/utils';
 
 interface FichaProps {
     nome: string;
@@ -22,7 +23,7 @@ interface FichaProps {
     onPegarRecompensa: () => void;
 }
 
-export default function Ficha({nome, subnome, imagem, nivelPerigo, status, idade, dataNascimento, recompensa, peso, altura, descricao, crimes, ultimaLocalizacao, onVoltar, onPegarRecompensa}: FichaProps) {
+export default function Ficha({ nome, subnome, imagem, nivelPerigo, status, idade, dataNascimento, recompensa, peso, altura, descricao, crimes, ultimaLocalizacao, onVoltar, onPegarRecompensa }: FichaProps) {
     let desconhecidoData: string = "";
     let dataFormatada: string;
     let desconhecidoIdade: string = "";
@@ -33,12 +34,12 @@ export default function Ficha({nome, subnome, imagem, nivelPerigo, status, idade
     situacao = situacaoStatus(status);
     nivelPerigo = nivelPerigoValido(nivelPerigo);
     desconhecidoData = checaDataNascimento(dataNascimento);
-    dataFormatada = trataData(dataNascimento);   
+    dataFormatada = trataData(dataNascimento);
     idade = idadeValida(idade);
     desconhecidoIdade = formataIdade(idade);
     recompensaValida = trataRecompensa(recompensa, status);
 
-    return(
+    return (
         <div className="ficha">
             <div className="nome-ficha"><h2>{nome}</h2></div>
             <div className='subnome-ficha'><h3>{subnome}</h3></div>

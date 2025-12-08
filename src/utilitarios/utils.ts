@@ -1,20 +1,20 @@
 import type { Status } from "../Personagem";
 import type { Procurado } from "../ProcessadorListas";
 
-export function filtrarPersonagem(lista: Procurado[], filtroNome: string = "", filtroStatus:string = "", filtroEstrela: number = 0) {
-  return lista.filter((personagem) => {
-    const nomeValido =
-      !filtroNome || personagem.Nome.toLowerCase().includes(filtroNome.toLowerCase()) ||
-      personagem.Subnome.toLowerCase().includes(filtroNome.toLowerCase());
+export function filtrarPersonagem(lista: Procurado[], filtroNome: string = "", filtroStatus: string = "", filtroEstrela: number = 0) {
+    return lista.filter((personagem) => {
+        const nomeValido =
+            !filtroNome || personagem.Nome.toLowerCase().includes(filtroNome.toLowerCase()) ||
+            personagem.Subnome.toLowerCase().includes(filtroNome.toLowerCase());
 
-    const statusValido =
-      !filtroStatus || personagem.Status.toLowerCase() === filtroStatus.toLowerCase();
+        const statusValido =
+            !filtroStatus || personagem.Status.toLowerCase() === filtroStatus.toLowerCase();
 
-    const estrelaValido =
-      !filtroEstrela || personagem.NivelPerigo === filtroEstrela;
+        const estrelaValido =
+            !filtroEstrela || personagem.NivelPerigo === filtroEstrela;
 
-    return nomeValido && statusValido && estrelaValido;
-  })
+        return nomeValido && statusValido && estrelaValido;
+    })
 }
 
 
@@ -24,7 +24,7 @@ export function dataValida(data: string): boolean {
 }
 
 export function situacaoStatus(status: Status): string {
-    switch(status) {
+    switch (status) {
         case "Foragido":
             return 'foragido';
         case "Morto":
@@ -37,17 +37,17 @@ export function situacaoStatus(status: Status): string {
 }
 
 export function validaUrlImagem(valor: string): boolean {
-        if (!valor) return false;
-        try {
-            const u = new URL(valor);
-            return ["http:", "https:"].includes(u.protocol);
-        } catch {
-            return false;
-        }
-    };
+    if (!valor) return false;
+    try {
+        const u = new URL(valor);
+        return ["http:", "https:"].includes(u.protocol);
+    } catch {
+        return false;
+    }
+};
 
 export const statusValido = (status: string): Status =>
-            ["Foragido", "Morto", "Capturado", "Desconhecido"].includes(status as Status)? (status as Status): "Desconhecido";
+    ["Foragido", "Morto", "Capturado", "Desconhecido"].includes(status as Status) ? (status as Status) : "Desconhecido";
 
 export const idadeValida = (idade: number | string): number | string => {
     if (typeof idade === 'number') {
@@ -58,7 +58,7 @@ export const idadeValida = (idade: number | string): number | string => {
             return idade;
         }
         return "Idade inválida";
-    } 
+    }
     else {
         return "Desconhecida";
     }
@@ -79,7 +79,7 @@ export function formataIdade(idade: number | string): string {
     return "";
 }
 
-export const nivelPerigoValido = (nivelPerigo: number): number =>{
+export const nivelPerigoValido = (nivelPerigo: number): number => {
     if (nivelPerigo < 1) {
         return 1;
     } else if (nivelPerigo > 5) {
@@ -95,12 +95,12 @@ export function trataRecompensa(recompensa: number, status: string): string {
     } else if (recompensa <= 0) {
         return "Recompensa inválida";
     } else {
-        return `R$${recompensa.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        return `R$${recompensa.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
 }
 
 export function checaDataNascimento(dataNascimento: string): string {
-    if(dataNascimento === "Desconhecido") {
+    if (dataNascimento === "Desconhecido") {
         return "desconhecido";
     }
     return "";
@@ -117,22 +117,22 @@ export function garantiaRemocaoCriminoso(id: number, onRemover: (id: number) => 
 }
 
 export function trataData(dataNascimento: string): string {
-    if(dataNascimento === "Desconhecido") {
+    if (dataNascimento === "Desconhecido") {
         return "Desconhecido";
     }
-    else{
-        if(dataValida(dataNascimento)) {
+    else {
+        if (dataValida(dataNascimento)) {
             return new Date(dataNascimento + "T00:00:00").toLocaleDateString('pt-BR');
         }
     }
     return "(data inválida)";
 }
 
-export function buscaUser(usuario : {email: string; senha: string;}, credencialLogin: {email: string; senha: string;}): boolean {
+export function buscaUser(usuario: { email: string; senha: string; }, credencialLogin: { email: string; senha: string; }): boolean {
     return usuario.email === credencialLogin.email && usuario.senha === credencialLogin.senha
 }
 
-export function buscarUsuario<T extends {email: string; senha: string}>(listaUsuarios: T[], credenciais: {email: string; senha: string}): T | undefined {
+export function buscarUsuario<T extends { email: string; senha: string }>(listaUsuarios: T[], credenciais: { email: string; senha: string }): T | undefined {
     return listaUsuarios.find((usuario) => buscaUser(usuario, credenciais));
 }
 
@@ -140,19 +140,19 @@ export function formataPalavra(palavra: string): string {
     return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
 }
 
-export function mudarEstiloImgPorStatus(status: Status|string) {
-        if (status === 'morto') {
-            return 'imagem-morto';
-        } else if (status === 'capturado') {
-            return 'imagem-capturado';
-        } else if (status === 'foragido') {
-            return 'imagem-foragido';
-        } else {
-            return 'imagem-desconhecido';
-        }
+export function mudarEstiloImgPorStatus(status: Status | string) {
+    if (status === 'morto') {
+        return 'imagem-morto';
+    } else if (status === 'capturado') {
+        return 'imagem-capturado';
+    } else if (status === 'foragido') {
+        return 'imagem-foragido';
+    } else {
+        return 'imagem-desconhecido';
+    }
 };
 
-export function novoStatusAtual(status: Status|string): Status {
+export function novoStatusAtual(status: Status | string): Status {
     if (status === 'foragido') {
         return 'Capturado';
     } else if (status === 'capturado') {

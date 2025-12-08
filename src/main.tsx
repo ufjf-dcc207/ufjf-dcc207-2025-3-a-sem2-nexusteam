@@ -12,6 +12,6 @@ createRoot(document.getElementById('root')!).render(
 
 createRoot(document.getElementById('rodape')!).render(
   <StrictMode>
-    <Rodape/>
+    <Rodape />
   </StrictMode>,
 )

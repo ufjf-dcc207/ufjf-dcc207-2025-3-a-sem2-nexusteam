@@ -4,8 +4,8 @@ type InterfaceExibicaoProps = {
     children?: ReactNode;
 }
 
-export default function InterfaceExibicao({ children }: InterfaceExibicaoProps){
-    return(
+export default function InterfaceExibicao({ children }: InterfaceExibicaoProps) {
+    return (
         <div className="exibicao">
             {children}
         </div>

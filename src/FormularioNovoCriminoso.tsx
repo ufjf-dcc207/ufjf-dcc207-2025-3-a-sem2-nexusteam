@@ -1,20 +1,20 @@
 import { useState } from "react";
-import type { Procurado }  from "./ProcessadorListas";
+import type { Procurado } from "./ProcessadorListas";
 import type { Status } from "./Personagem";
-import {validaUrlImagem, statusValido, trataIdade } from "./utilitarios/utils";
+import { validaUrlImagem, statusValido, trataIdade } from "./utilitarios/utils";
 import "./estilos/FormularioNovoCriminoso.css";
 
 
 type FormularioProps = {
-    submeter:(novoPersonagem: Procurado) => void;
-    cancelaSubmeter:()=>void;
+    submeter: (novoPersonagem: Procurado) => void;
+    cancelaSubmeter: () => void;
     ultimoId: number;
 }
 type DadosFormularioCriminoso = {
     Nome: string;
     Subnome: string;
     Imagem: string;
-    Idade: number | string; 
+    Idade: number | string;
     DataDeNascimento: string;
     Status: Status | string;
     NivelPerigo: number;
@@ -28,8 +28,8 @@ type DadosFormularioCriminoso = {
 };
 
 
-export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ultimoId }:FormularioProps){
-    const[dados,setDados] = useState<DadosFormularioCriminoso>({
+export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ultimoId }: FormularioProps) {
+    const [dados, setDados] = useState<DadosFormularioCriminoso>({
         Nome: "",
         Subnome: "",
         Idade: "",
@@ -50,8 +50,8 @@ export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ult
     const inputUsuario = (entrada: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const target = entrada.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
         const { name, type } = target;
-       
-        if(type === "date"){
+
+        if (type === "date") {
             setDados(prev => ({
                 ...prev,
                 DataDeNascimento: (target as HTMLInputElement).value,
@@ -62,7 +62,7 @@ export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ult
             const numero = (target as HTMLInputElement).valueAsNumber;
             const vazio = (target as HTMLInputElement).value === "";
 
-      
+
             if (name === "Idade") {
                 setDados(prev => ({
                     ...prev,
@@ -139,65 +139,65 @@ export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ult
                 <h3>Adicionar Novo Criminoso</h3>
 
                 <label>Nome Completo (Obrigatório):</label>
-                <input 
-                    type="text" 
-                    name="Nome" 
-                    value={dados.Nome} 
-                    onChange={inputUsuario} required 
+                <input
+                    type="text"
+                    name="Nome"
+                    value={dados.Nome}
+                    onChange={inputUsuario} required
                     placeholder="Ex: Cesar Oliveira Cohen"
                 />
-                
+
                 <label>Subnome / Codinome:</label>
-                <input 
+                <input
                     type="text"
-                    name="Subnome" 
-                    value={dados.Subnome} 
+                    name="Subnome"
+                    value={dados.Subnome}
                     onChange={inputUsuario}
                     placeholder="Ex: Kaiser"
                 />
 
                 <label>Peso:</label>
-                <input 
-                    type="text" 
-                    name="Peso" 
-                    value={dados.Peso} 
-                    onChange={inputUsuario} 
-                    placeholder="Ex: 70kg" 
+                <input
+                    type="text"
+                    name="Peso"
+                    value={dados.Peso}
+                    onChange={inputUsuario}
+                    placeholder="Ex: 70kg"
                 />
 
                 <label>Altura:</label>
-                <input 
-                    type="text" 
-                    name="Altura" 
-                    value={dados.Altura} 
-                    onChange={inputUsuario} 
-                    placeholder="Ex: 1.75m" 
+                <input
+                    type="text"
+                    name="Altura"
+                    value={dados.Altura}
+                    onChange={inputUsuario}
+                    placeholder="Ex: 1.75m"
                 />
 
                 <label>Idade:</label>
-                <input 
-                    type="number" 
-                    name="Idade" 
-                    value={dados.Idade} 
-                    onChange={inputUsuario} 
-                    min="0" 
-                    placeholder="0" 
+                <input
+                    type="number"
+                    name="Idade"
+                    value={dados.Idade}
+                    onChange={inputUsuario}
+                    min="0"
+                    placeholder="0"
                 />
                 <label>Data de Nascimento:</label>
-                <input 
-                    type="date" 
-                    name="DataDeNascimento" 
-                    value={dados.DataDeNascimento} 
-                    onChange={inputUsuario} 
+                <input
+                    type="date"
+                    name="DataDeNascimento"
+                    value={dados.DataDeNascimento}
+                    onChange={inputUsuario}
                 />
 
                 <label>Última Localização:</label>
-                <input 
-                  type="text" 
-                  name="UltimaLocalizacao" 
-                  value={dados.UltimaLocalizacao} 
-                  onChange={inputUsuario} 
-                  placeholder="Ex: Distrito Central, Nexus City" 
+                <input
+                    type="text"
+                    name="UltimaLocalizacao"
+                    value={dados.UltimaLocalizacao}
+                    onChange={inputUsuario}
+                    placeholder="Ex: Distrito Central, Nexus City"
                 />
 
                 <label>Nível de Perigo (1 a 5):</label>
@@ -219,46 +219,46 @@ export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ult
                 <input type="number" name="Recompensa" value={dados.Recompensa} onChange={inputUsuario} min="0" />
 
                 <label>Caminho da Imagem (Ex: Procurados/novo.png):</label>
-                <input 
-                 type="text" 
-                name="caminhoImagem" 
-                value={dados.caminhoImagem} 
-                onChange={inputUsuario} 
-                placeholder="URL completa (https://...) ou deixe vazio" 
+                <input
+                    type="text"
+                    name="caminhoImagem"
+                    value={dados.caminhoImagem}
+                    onChange={inputUsuario}
+                    placeholder="URL completa (https://...) ou deixe vazio"
                 />
-                    <label>Descrição:</label>
-                    <textarea
-                        name="Descricao"
-                        value={dados.Descricao}
-                        onChange={inputUsuario}
-                        rows={3}
-                        placeholder="Detalhes, características, observações..."
-                    />
-                    <label>Crimes (separar por vírgulas):</label>
-                    <textarea
-                        name="Crimes"
-                        value={dados.Crimes}
-                        onChange={inputUsuario}
-                        rows={2}
-                        placeholder="Roubo, Falsificação, Contrabando..."
-                    />
-                    <div style={{marginTop: '8px'}}>
-                        {dados.Imagem ? (
-                            previewValida ? (
-                                <img 
-                                    src={dados.Imagem} 
-                                    alt="Preview" 
-                                    style={{maxWidth:'140px', maxHeight:'140px', border:'1px solid #D9BE6C', borderRadius:'6px'}}
-                                    onError={() => setPreviewValida(false)}
-                                />
-                            ) : (
-                                <span style={{color:'#ff8080', fontSize:'0.85rem'}}>URL inválida ou imagem indisponível.</span>
-                            )
+                <label>Descrição:</label>
+                <textarea
+                    name="Descricao"
+                    value={dados.Descricao}
+                    onChange={inputUsuario}
+                    rows={3}
+                    placeholder="Detalhes, características, observações..."
+                />
+                <label>Crimes (separar por vírgulas):</label>
+                <textarea
+                    name="Crimes"
+                    value={dados.Crimes}
+                    onChange={inputUsuario}
+                    rows={2}
+                    placeholder="Roubo, Falsificação, Contrabando..."
+                />
+                <div style={{ marginTop: '8px' }}>
+                    {dados.Imagem ? (
+                        previewValida ? (
+                            <img
+                                src={dados.Imagem}
+                                alt="Preview"
+                                style={{ maxWidth: '140px', maxHeight: '140px', border: '1px solid #D9BE6C', borderRadius: '6px' }}
+                                onError={() => setPreviewValida(false)}
+                            />
                         ) : (
-                            <span style={{fontSize:'0.8rem', color:'#D9BE6C'}}>Sem imagem definida. Será usado padrão.</span>
-                        )}
-                    </div>
-                
+                            <span style={{ color: '#ff8080', fontSize: '0.85rem' }}>URL inválida ou imagem indisponível.</span>
+                        )
+                    ) : (
+                        <span style={{ fontSize: '0.8rem', color: '#D9BE6C' }}>Sem imagem definida. Será usado padrão.</span>
+                    )}
+                </div>
+
                 <div className="botoes-formulario">
                     <button type="submit" className="botao-salvar">Salvar Criminoso</button>
                     <button type="button" className="botao-cancelar" onClick={cancelaSubmeter}>Cancelar</button>
