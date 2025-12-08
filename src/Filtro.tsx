@@ -1,6 +1,15 @@
 import "./estilos/Filtro.css";
 
-export function Filtro({ filtros, setFiltros }: { filtros: any; setFiltros: any }) {
+interface FiltroProps {
+  filtros: {
+    nome: string;
+    estrela: number;
+    status: string;
+  };
+  setFiltros: (filtros: FiltroProps["filtros"]) => void;
+}
+
+export function Filtro({ filtros, setFiltros }: FiltroProps) {
   return (
     <div className="container-busca">
       <div className="interface-busca">

@@ -9,6 +9,7 @@ export function useGerenciadorProcurados() {
     const adicionarProcurado = (novo: Procurado) => {
         setListaAtualizada(prevLista => [novo, ...prevLista]);
     }
+
     const removerProcurado = (id: number) => {
         setListaAtualizada(prevLista => prevLista.filter(p => p.id !== id));
     }
