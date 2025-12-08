@@ -52,8 +52,8 @@ export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ult
         const { name, type } = target;
 
         if (type === "date") {
-            setDados(prev => ({
-                ...prev,
+            setDados(prevDados => ({
+                ...prevDados,
                 DataDeNascimento: (target as HTMLInputElement).value,
             }));
             return;
@@ -64,22 +64,22 @@ export default function FormularioNovoCriminoso({ submeter, cancelaSubmeter, ult
 
 
             if (name === "Idade") {
-                setDados(prev => ({
-                    ...prev,
+                setDados(prevDados => ({
+                    ...prevDados,
                     Idade: vazio || Number.isNaN(numero) ? "" : numero,
                 }));
                 return;
             }
 
-            setDados(prev => ({
-                ...prev,
+            setDados(prevDados => ({
+                ...prevDados,
                 [name]: Number.isNaN(numero) ? 0 : numero,
             }));
             return;
         }
 
-        setDados(prev => ({
-            ...prev,
+        setDados(prevDados => ({
+            ...prevDados,
             [name]: (target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value,
         }));
 

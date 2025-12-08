@@ -3,7 +3,7 @@ import type { InfoUsuario, Procurado } from "./ProcessadorListas";
 import { Cabecalho } from "./Cabecalho";
 import { GerenciadorDeTelas } from "./GerenciadorTelas";
 import { useFiltroProcurados } from "./hooks/app/useFiltroProcurados";
-import { useLogin } from "./hooks/app/useLogin";
+import { useLogin } from "./hooks/login/useLogin";
 import { useGerenciadorProcurados } from "./hooks/app/useGerenciadorProcurados";
 import { useNavegacao } from "./hooks/app/useNavegacao";
 import { useFicha } from "./hooks/app/useFicha";

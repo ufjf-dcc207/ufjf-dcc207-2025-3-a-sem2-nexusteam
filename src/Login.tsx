@@ -1,6 +1,6 @@
 import type { InfoUsuario } from "./ProcessadorListas";
 import "./estilos/Login.css";
-import { useLoginForm } from "./hooks/app/useLogin";
+import { useLoginForm } from "./hooks/login/useLogin";
 
 type LoginProps = {
   TemLogin: (usuario: InfoUsuario) => void;
