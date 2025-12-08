@@ -21,4 +21,7 @@ A home será dividida inicialmente pensado com o grid em uma matriz de escala 10
 
 Aqui apresentamos o resultado final da nossa interface de procurados fictícios, com uma lista de procurados fictícios adaptados aos personagens de filmes, jogos de videogame, etc.
 
-[Página](https://ufjf-dcc207.github.io/ufjf-dcc207-2025-3-a-sem01-nexus-team/)
+Realizamos atualizações na nossa interface de procurados fictícios, incluindo uma barra de rolagem e um menu de navegação para facilitar a navegação entre os diferentes personagens.
+Além disso trabalhamos com os estados para mudança de comportamento dos personagens além de login e estrutura de adição e remoção do criminoso com cada um pertecendo a uma ficha.
+
+[Página](https://ufjf-dcc207.github.io/ufjf-dcc207-2025-3-a-sem2-nexusteam/)
