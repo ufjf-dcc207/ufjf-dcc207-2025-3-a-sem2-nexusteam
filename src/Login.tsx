@@ -1,36 +1,13 @@
-import React, { useState } from "react";
-import { Usuario, type InfoUsuario } from "./ProcessadorListas";
+import type { InfoUsuario } from "./ProcessadorListas";
 import "./estilos/Login.css";
-import { buscarUsuario } from "./utilitarios/utils";
+import { useLoginForm } from "./hooks/app/useLogin";
 
 type LoginProps = {
   TemLogin: (usuario: InfoUsuario) => void;
 }
 
-type DadosLogin = {
-  email: string;
-  senha: string;
-}
-
 export function Login({ TemLogin }: LoginProps) {
-  const [credencialLogin, setCredencialLogin] = useState<DadosLogin>({ email: "", senha: "" });
-  const [erro, setErro] = useState<string>("");
-
-  const inputUsuario = (evento: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = evento.target;
-    setCredencialLogin({ ...credencialLogin, [name]: value });
-  }
-
-  const verificarLogin = (evento: React.FormEvent<HTMLFormElement>) => {
-    evento.preventDefault();
-    const usuarioEncontrado = buscarUsuario(Usuario, credencialLogin);
-    if (usuarioEncontrado) {
-      TemLogin(usuarioEncontrado);
-    } else {
-      setErro("Email ou senha incorretos");
-      setCredencialLogin({ email: "", senha: "" });
-    }
-  }
+  const { credencialLogin, erro, inputUsuario, verificarLogin } = useLoginForm(TemLogin);
 
   return (
     <div className="container-acesso">
