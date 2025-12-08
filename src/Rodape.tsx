@@ -42,7 +42,7 @@ export default function Rodape() {
                         Projeto desenvolvido para fins acadêmicos.
                     </p>
                     <a
-                        href="https://github.com/ufjf-dcc207/ufjf-dcc207-2025-3-a-sem01-nexus-team"
+                        href="https://github.com/ufjf-dcc207/ufjf-dcc207-2025-3-a-sem2-nexusteam"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="botao-licenca"

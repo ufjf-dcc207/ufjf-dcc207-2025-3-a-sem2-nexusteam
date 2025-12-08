@@ -1,12 +1,10 @@
 export type Status = "Foragido" | "Morto" | "Capturado" | "Desconhecido";
 import './estilos/Personagem.css';
-import { useState } from 'react';
-
 import {
     situacaoStatus, statusValido, idadeValida, nivelPerigoValido, trataRecompensa,
     formataIdade, checaDataNascimento, trataData, formataPalavra, mudarEstiloImgPorStatus,
-    novoStatusAtual, calculaRecompensaAtual, retornaRenderEstrelas
 } from './utilitarios/utils';
+import { usePersonagem } from './hooks/personagem/usePersonagem';
 
 type PersonagemProps = {
     nome: string;
@@ -44,62 +42,7 @@ export default function Personagem({ nome, subnome, imagem, nivelPerigo, status,
     desconhecidoIdade = formataIdade(idade);
     recompensaValida = trataRecompensa(recompensa, situacao);
 
-    const [atributos, setAtributos] = useState({
-        estrela: retornaRenderEstrelas(nivelPerigo),
-        status: situacao,
-        recompensa: recompensaValida
-    });
-    const [nivelAtual, setNivelAtual] = useState(nivelPerigo);
-
-    const onMudarStatus = () => {
-        let novoStatus: Status;
-        novoStatus = novoStatusAtual(atributos.status);
-        setAtributos({ ...atributos, status: situacaoStatus(novoStatus) })
-    };
-
-    const onVoltarStatus = () => {
-        let novoStatus: Status;
-        if (atributos.status === 'desconhecido') {
-            novoStatus = 'Morto';
-        } else if (atributos.status === 'morto') {
-            novoStatus = 'Capturado';
-        } else if (atributos.status === 'capturado') {
-            novoStatus = 'Foragido';
-        } else {
-            novoStatus = 'Desconhecido';
-        }
-        setAtributos({ ...atributos, status: situacaoStatus(novoStatus) })
-    };
-
-    const recalcularRecompensa = (nivel: number) => {
-        return trataRecompensa(calculaRecompensaAtual(nivel), atributos.status);
-    };
-
-    const onAdicionarEstrela = () => {
-        if (nivelAtual < 5) {
-            const novoNivel = nivelAtual + 1;
-            const novaRecompensa = recalcularRecompensa(novoNivel);
-            setNivelAtual(novoNivel);
-            setAtributos({
-                ...atributos,
-                estrela: '⭐'.repeat(novoNivel) + '☆'.repeat(5 - novoNivel),
-                recompensa: novaRecompensa
-            });
-        }
-    };
-
-    const onRemoverEstrela = () => {
-        if (nivelAtual > 1) {
-            const novoNivel = nivelAtual - 1;
-            const novaRecompensa = recalcularRecompensa(novoNivel);
-            setNivelAtual(novoNivel);
-            setAtributos({
-                ...atributos,
-                estrela: '⭐'.repeat(novoNivel) + '☆'.repeat(5 - novoNivel),
-                recompensa: novaRecompensa
-            });
-        }
-    };
+    const { atributos, onMudarStatus, onVoltarStatus, onAdicionarEstrela, onRemoverEstrela } = usePersonagem(nivelPerigo, situacao, recompensaValida);
 
     return (
         <div className={`personagem ${atributos.status === 'morto' ? 'morto' : ''} ${atributos.status === 'capturado' ? 'capturado' : ''}`}>
