@@ -1,5 +1,6 @@
 import "./estilos/App.css";
 import Personagem from "./Personagem";
+import type { InfoUsuario, Procurado } from "./ProcessadorListas";
 import InterfaceExibicao from "./InterfaceExibicao";
 import Ficha from "./Ficha";
 import Login from "./Login";
@@ -16,8 +17,8 @@ import { useFicha } from "./hooks/app/useFicha";
 
 function App() {
 
-  const { login, LoginCompleto, alternarLogin } = useLogin();
-  const { listaAtualizada, submeterNovoCriminoso, cancelarNovoCriminoso, removerCriminoso } = useGerenciadorProcurados();
+  const { login, processarLogin, processarLogout, alternarVisualizacaoLogin } = useLogin();
+  const { listaAtualizada, adicionarProcurado, removerCriminoso } = useGerenciadorProcurados();
   const { mostrarFormAddCriminoso, mostrarRemocaoCriminoso, clickOn, clickRemover, voltarPrincipal } = useNavegacao();
   const { personagemSelecionadoFicha, clickVerFicha, clickVoltar, clickPegarRecompensa } = useFicha();
   const { filtros, setFiltros, listaFiltrada } = useFiltroProcurados(listaAtualizada);
@@ -25,6 +26,29 @@ function App() {
   const deveMostrarFormularioAdicao = login.teveLogin && mostrarFormAddCriminoso;
   const deveMostrarRemocao = login.teveLogin && mostrarRemocaoCriminoso;
 
+
+  const LoginCompleto = (user: InfoUsuario) => {
+    processarLogin(user);
+    voltarPrincipal();
+  };
+
+  const alternarLogin = () => {
+    if (login.teveLogin) {
+      processarLogout();
+      voltarPrincipal();
+    } else {
+      alternarVisualizacaoLogin();
+    }
+  };
+
+  const submeterNovoCriminoso = (novo: Procurado) => {
+    adicionarProcurado(novo);
+    voltarPrincipal();
+  };
+
+  const cancelarNovoCriminoso = () => {
+    voltarPrincipal();
+  };
 
 
   const renderizarConteudo = () => {
