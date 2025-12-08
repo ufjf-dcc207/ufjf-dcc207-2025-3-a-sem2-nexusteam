@@ -209,7 +209,10 @@
 }
 
 .personagem .botao-add:hover, 
-.personagem .botao-remove:hover {
+.personagem .botao-remove:hover,
+.personagem .botao-voltar:hover, 
+.personagem .botao-avancar:hover {
+    background-color: transparent;
     transform: scale(1.2);
     opacity: 1;
 }
