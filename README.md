@@ -1,27 +1,23 @@
-# Lista de procurados fictícios
+# Site do Departamento de Polícia de Nexus City
 
-Participantes do projeto:
-Gabriel Lineker - número da matrícula: 202476025,
-Gianlucca Paiva - número da matrícula: 202476026
+> Participantes do projeto:
+> - Gabriel Lineker - número da matrícula: 202476025,
+> - Gianlucca Paiva - número da matrícula: 202476026
 
-## Procurados fictícios
+## Sobre o Projeto:
+Este é um sistema interativo desenvolvido em **React** e **TypeScript** que simula o banco de dados de procurados de uma cidade fictícia. O projeto, que começou com a proposta de apenas renderizar uma lista estática, evoluiu para uma aplicação completa onde é possível **entrar no sistema, gerenciar criminosos e filtrar dados**.
 
-Proposta de Tema: Interface de "Procurados" de um Sistema Policial ultilizando Vite - React + typescript.
-Nossa ideia é desenhar e desenvolver a interface de uma tela que exibe uma lista de "procurados" fictícios, contendo seus dados, crimes e status atual.(Todos totalmente adaptado perante as mídias originais com leve toque humorístico referenciando situações dos próprios personagens nos seus jogos, filmes, etc).
-Pretendemos criar uma árvore de componentes que será preenchida com dados estáticos de cada elemento contido nela.
-Não haverá manipulação de estado ou comunicação com back-end. A ideia é apenas renderizar esses dados na tela.
-Observações:
-Para evitar problemas, não usaremos dados reais. A lista será composta por personagens fictícios (de filmes, jogos, etc.).
-A tela principal mostraria a lista de procurados e talvez permitiria uma filtragem visual simples (por exemplo, botões para ver "Status: Foragido" ou "Status: Capturado"), mas tudo baseado nos dados estáticos.
-Acreditamos que esse tema se encaixa bem no escopo de desenhar interfaces e renderizar componentes com dados estáticos.
+O objetivo principal foi aplicar conceitos modernos de desenvolvimento web para criar uma interface fluida, onde o usuário pode navegar e interagir com os dados em tempo real.
 
-A home será dividida inicialmente pensado com o grid em uma matriz de escala 10x2 totalizando 20 personagens iniciais.
+## O Que Há de Novo?:
 
-## Página atual
+Diferente de uma simples página de "exibição", o sistema agora possui funcionalidades dinâmicas:
 
-Aqui apresentamos o resultado final da nossa interface de procurados fictícios, com uma lista de procurados fictícios adaptados aos personagens de filmes, jogos de videogame, etc.
+* **Login Simulado (Hierarquia):** O sistema muda dependendo de quem está logado. Podendo assim ter acesso a botões exclusivos para **Adicionar** ou **Remover** procurados. Se não estiver logado, verá apenas a lista pública.
+* **Navegação Fluida:** Criamos um gerenciador inteligente que alterna entre as telas (Login, Formulário, Lista ou Ficha Detalhada) instantaneamente, sem precisar recarregar a página.
+* **Filtros Inteligentes:** É possível buscar criminosos por nome, nível de perigo (estrelas) ou status (Foragido/Capturado) em tempo real.
+* **Gerenciamento da Lista:** O sistema permite cadastrar novos procurados fictícios ou remover os existentes da lista instantaneamente, atualizando o grid automaticamente sem alterar a base de dados pré-existente.
 
-Realizamos atualizações na nossa interface de procurados fictícios, incluindo uma barra de rolagem e um menu de navegação para facilitar a navegação entre os diferentes personagens.
-Além disso trabalhamos com os estados para mudança de comportamento dos personagens além de login e estrutura de adição e remoção do criminoso com cada um pertecendo a uma ficha.
+## Página atual:
 
-[Página](https://ufjf-dcc207.github.io/ufjf-dcc207-2025-3-a-sem2-nexusteam/)
+Aqui apresentamos o resultado final do site até o momento [Página](https://ufjf-dcc207.github.io/ufjf-dcc207-2025-3-a-sem2-nexusteam/)
