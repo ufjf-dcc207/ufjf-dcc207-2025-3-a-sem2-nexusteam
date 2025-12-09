@@ -1,4 +1,3 @@
-
 import "./estilos/RemoverCriminosoDoSistema.css";
 import type { Procurado } from "./ProcessadorListas";
 import { garantiaRemocaoCriminoso } from "./utilitarios/utils";
