@@ -1,7 +1,7 @@
 import "./estilos/Cabecalho.css"
 import type { InfoUsuario } from "./ProcessadorListas";
 
-interface CabecalhoProps {
+type CabecalhoProps = {
     TemLogin: boolean;
     nivelAcesso?: string;
     usuario?: InfoUsuario | null;

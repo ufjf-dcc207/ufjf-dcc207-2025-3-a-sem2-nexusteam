@@ -1,10 +1,11 @@
-export type Status = "Foragido" | "Morto" | "Capturado" | "Desconhecido";
 import './estilos/Personagem.css';
 import {
     situacaoStatus, statusValido, idadeValida, nivelPerigoValido, trataRecompensa,
     formataIdade, checaDataNascimento, trataData, formataPalavra, mudarEstiloImgPorStatus,
 } from './utilitarios/utils';
 import { usePersonagem } from './hooks/personagem/usePersonagem';
+
+export type Status = "Foragido" | "Morto" | "Capturado" | "Desconhecido";
 
 type PersonagemProps = {
     nome: string;

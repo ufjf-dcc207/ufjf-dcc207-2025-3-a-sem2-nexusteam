@@ -10,6 +10,7 @@ type FormularioProps = {
     cancelaSubmeter: () => void;
     ultimoId: number;
 }
+
 type DadosFormularioCriminoso = {
     Nome: string;
     Subnome: string;

@@ -8,7 +8,7 @@ import { Filtro } from "./Filtro";
 import Personagem from "./Personagem";
 import type { Procurado, InfoUsuario } from "./ProcessadorListas";
 
-interface GerenciadorProps {
+type GerenciadorProps = {
     login: {
         teveLogin: boolean;
         mostraLogin: boolean;

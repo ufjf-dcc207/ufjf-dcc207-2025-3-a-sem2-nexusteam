@@ -2,7 +2,7 @@ import "./estilos/RemoverCriminosoDoSistema.css";
 import type { Procurado } from "./ProcessadorListas";
 import { garantiaRemocaoCriminoso } from "./utilitarios/utils";
 
-interface RemoverCriminosoDoSistemaProps {
+type RemoverCriminosoDoSistemaProps = {
     lista: Procurado[];
     onRemover: (id: number) => void;
     voltarPrincipal: () => void;

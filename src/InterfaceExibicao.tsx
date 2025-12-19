@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import "./estilos/InterfaceExibicao.css"
+
 type InterfaceExibicaoProps = {
     children?: ReactNode;
 }

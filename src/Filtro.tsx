@@ -1,6 +1,6 @@
 import "./estilos/Filtro.css";
 
-interface FiltroProps {
+type FiltroProps = {
   filtros: {
     nome: string;
     estrela: number;
