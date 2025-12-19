@@ -93,6 +93,9 @@ export function GerenciadorDeTelas({ login, navegacao, dados, acoes }: Gerenciad
                     ultimaLocalizacao={dados.personagemFicha.UltimaLocalizacao}
                     onVoltar={acoes.fecharFicha}
                     onPegarRecompensa={acoes.pegarRecompensa}
+                    onVerFicha={() => { }}
+                    TemLogin={login.teveLogin}
+                    tipoAcesso={login.userInfo?.nivelAcesso || ""}
                 />
             </InterfaceExibicao>
         );
