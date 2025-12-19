@@ -7,7 +7,7 @@ import { usePersonagem } from './hooks/personagem/usePersonagem';
 
 export type Status = "Foragido" | "Morto" | "Capturado" | "Desconhecido";
 
-type PersonagemProps = {
+export interface PersonagemProps {
     nome: string;
     subnome: string;
     imagem: string;
